@@ -23,7 +23,7 @@ S3D::S3D(TFT_eSPI *tft)
       1,
       S3DColor(1, 1, 1)};
   this->screen->setColorDepth(8);
-  this->screen->createSprite(240, 240);
+  this->screen->createSprite(this->screenResolution->x, this->screenResolution->y);
 }
 
 S3DColor S3D::colorAtPixel(int x, int y)
