@@ -23,7 +23,7 @@ S3D::S3D(TFT_eSPI *tft)
       1,
       S3DColor(1, 1, 1)};
   this->screen->setColorDepth(8);
-  this->screen->createSprite(this->screenResolution->x, this->screenResolution->y);
+  this->screen->createSprite(this->screenResolution->x, this->screenResolution->y, 1);
 }
 
 S3DColor S3D::colorAtPixel(int x, int y)
@@ -68,7 +68,7 @@ S3DColor S3D::colorAtPixel(int x, int y)
   }
 }
 
-void S3D::update()
+void S3D::render()
 {
   for (int x = 0; x < this->screenResolution->x; x++)
   {
@@ -77,8 +77,18 @@ void S3D::update()
       this->screen->drawPixel(x, y, this->colorAtPixel(this->screenResolution->x - x - 1, this->screenResolution->y - y - 1).to565());
     }
   }
-  this->screen->pushSprite(0, 0);
+}
+
+void S3D::clearScreen()
+{
   this->screen->fillSprite(this->backgroundColor.to565());
+}
+
+void S3D::update()
+{
+  this->render();
+  this->screen->pushSprite(0, 0);
+  this->clearScreen();
 }
 
 void S3D::addObject(S3DObject *object)
@@ -116,4 +126,9 @@ S3DColor S3D::getBackgroundColor()
 void S3D::blitz(TFT_eSprite *sprite, int x, int y)
 {
   sprite->pushToSprite(screen, x, y);
+}
+
+TFT_eSprite *S3D::getScreen()
+{
+  return this->screen;
 }

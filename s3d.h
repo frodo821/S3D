@@ -40,6 +40,8 @@ public:
   S3D();
   S3D(TFT_eSPI *tft);
 
+  void render();
+  void clearScreen();
   void update();
   void addObject(S3DObject *object);
   void removeObject(S3DObject *object);
@@ -48,4 +50,5 @@ public:
   void setBackgroundColor(S3DColor color);
   void blitz(TFT_eSprite *sprite, int x, int y);
   S3DColor getBackgroundColor();
+  TFT_eSprite *getScreen();
 };
